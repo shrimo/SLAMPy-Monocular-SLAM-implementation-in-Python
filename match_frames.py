@@ -13,9 +13,11 @@ def extractRt(F):
     #assert np.linalg.det(U) > 0
     if np.linalg.det(Vt) < 0:
         Vt *= -1.0
-    R = np.dot(np.dot(U, W), Vt)
+    # R = np.dot(np.dot(U, W), Vt)
+    R = U @ W @ Vt
     if np.sum(R.diagonal()) < 0:
-        R = np.dot(np.dot(U, W.T), Vt)
+        # R = np.dot(np.dot(U, W.T), Vt)
+        R = U @ W.T @ Vt
     t = U[:, 2]
     ret = np.eye(4)
     ret[:3, :3] = R
@@ -74,7 +76,7 @@ def generate_match(f1, f2):
                     # EssentialMatrixTransform,
                     min_samples=8,
                     residual_threshold=0.001,
-                    max_trials=1000)
+                    max_trials=100)
 
     # print("Matches: %d -> %d -> %d -> %d" % (len(f1.descriptors), len(matches), len(f_pts), sum(f_pts)))
     Rt = extractRt(model.params)    

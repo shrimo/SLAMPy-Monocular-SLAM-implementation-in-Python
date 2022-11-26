@@ -66,7 +66,7 @@ class SLAM:
         for pt1, pt2 in zip(frame1.key_pts[x1], frame2.key_pts[x2]):
             u1, v1 = denormalize(self.K, pt1)
             u2, v2 = denormalize(self.K, pt2)
-            cv2.drawMarker(self.image, (u1, v1), (0, 255, 0), 1, 15, 1, 8)
+            cv2.drawMarker(self.image, (u1, v1), (10, 255, 255), 1, 15, 1, 8)
             cv2.line(self.image, (u1, v1), (u2, v2), (0, 0, 255), 1)
             show_attributes(self.image, 'ORB')
 
@@ -86,12 +86,13 @@ if __name__ == "__main__":
     cap = cv2.VideoCapture(sys.argv[1]) # Can try Realtime(highly unlikely though)
     cap.set(cv2.CAP_PROP_POS_FRAMES, 10)
     slam = SLAM(500, 1920, 1080, 2)
+    resize = 0.75
     while cap.isOpened():
         ret, frame = cap.read()
         if ret == True:
             slam.generate(frame)
             if slam.image is not None:
-                frame_out = cv2.resize(slam.image, (int(slam.W*0.5), int(slam.H*0.5)))
+                frame_out = cv2.resize(slam.image, (int(slam.W*resize), int(slam.H*resize)))
                 cv2.imshow("SLAM", frame_out)
             key = cv2.waitKey(1)
             if key == ord('p'):

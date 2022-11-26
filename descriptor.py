@@ -141,12 +141,12 @@ class Descriptor:
 
         # draw trajectory
         gl.glLineWidth(1)
-        gl.glColor3f(1.0, 0.0, 0.0)
+        gl.glColor3f(0.1, 0.7, 1.0)
         pangolin.DrawLine(self.state[2])
 
         # draw all poses
-        gl.glColor3f(0.75, 0.75, 0.15)
-        pangolin.DrawCameras(self.state[0], 0.75, 0.75, 0.75)
+        # gl.glColor3f(0.75, 0.75, 0.15)
+        # pangolin.DrawCameras(self.state[0], 0.75, 0.75, 0.75)
 
         # draw current pose
         gl.glColor3f(1.0, 0.0, 0.0)
